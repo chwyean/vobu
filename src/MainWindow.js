@@ -7,12 +7,11 @@ function MainWindow(props) {
         <div className="mainWindow">
             <div className="pinyinTextbox">nǐ hǎo</div>
             <div className="symbolTextbox">你好</div>
-            <span/>
-            <ButtonGroup>
+
+            <div className="mainButtons">
                 <Button className="showButton" size='lg'>Show</Button>
                 <Button className="nextButton" size='lg' variant='primary'>Next</Button>
-            </ButtonGroup>
-
+            </div>
         </div>
     );
 }
