@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import DisplayOptionControl from './DisplayOptionControl'
+import MainWindow from './MainWindow';
 
 const hideOptions = {
   "symbol":"symbol",
@@ -32,7 +33,7 @@ class App extends React.Component {
           <h1>
             Chinese Vocabulary Builder
           </h1>
-          <img src={logo} className="App-logo" alt="logo" />
+          <MainWindow class="mainWindow"></MainWindow>
           <DisplayOptionControl className="displayOptionControl"
               value={this.state.hideOption}
               onChangeHandle={this.handleHideOptionChange}
