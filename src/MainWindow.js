@@ -14,16 +14,14 @@ function MainWindow(props) {
                 {`
                 .btn-xxl {
                 padding: 10pt;
-                font-size: calc(10pt + 2vw);
+                font-size: calc(8pt + 2vw);
                 }
                 `}
             </style>
 
             <div className="mainButtons">
-                {/* <Button className="mainButton" variant='primary' style={{"font-size":"calc(10pt + 3vw)"}}
-                    onClick={props.nextButtonHandler}>Next</Button> */}
-                    <Button className="mainButton" variant='primary' size="xxl"
-                    onClick={props.nextButtonHandler}>Next</Button>
+                <Button className="mainButton" variant='primary' size="xxl"
+                    onClick={props.mainButtonHandler}>{props.buttonMode}</Button>
             </div>
         </div>
     );

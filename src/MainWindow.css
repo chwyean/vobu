@@ -4,7 +4,7 @@
 
 .pinyinTextbox {
     background-color: hsl(49, 100%, 82%);
-    min-width: calc(80pt + 30vw);
+    min-width: calc(200pt + 30vw);
     /*height: 10vh;
     padding: 10px 5px; */
     padding: 10pt;
@@ -14,10 +14,10 @@
     justify-content: center;
     font-size: calc(10pt + 5vmin);
     color: #505050;
-    border-width: 5pt;
+    border-width: 6pt;
     border-color: #fcc224;
     border-style:solid;
-    margin: 10px;
+    margin: 20px;
 }
 
 .symbolTextbox {
@@ -27,12 +27,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(30pt + 10vmin);
+    font-size: calc(30pt + 8vmin);
     color: #505050;
-    border-width: 5pt;
+    border-width: 6pt;
     border-color: #fcc224;
     border-style:solid;
-    margin: 10px;
+    margin: 20px;
 }
 
 .mainButtons {
@@ -40,7 +40,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin: 20pt;
+    margin-top: 50pt;
+    margin-bottom: 10pt;
 }
 
 .mainButton {

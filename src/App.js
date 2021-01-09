@@ -5,11 +5,20 @@ import MainWindow from './MainWindow';
 
 import Papa from 'papaparse';
 
+const hidingString = "???";
 
 const hideOptions = {
   "none":"none",
   "symbol":"symbol",
   "pinyin":"pinyin",
+};
+
+/* 
+Button mode based on value of isHiding.
+*/
+const buttonModes = {
+  false:"Next",
+  true:"Show",
 };
 
 const dataFilePath = 'vocab-raw-test.csv';
@@ -21,11 +30,13 @@ class App extends React.Component {
   wordData=null;
   currentWordIndex = -1;
   randomize = true;
+  isHiding = false;
 
   constructor(props){
     super(props)
     this.state = {
       hideOption:"none",
+      buttonMode:"next",
       wordPinyin:"nǐ hǎo", // load initial value
       wordSymbol:"你好",
     };
@@ -52,7 +63,8 @@ class App extends React.Component {
           <MainWindow class="mainWindow"
               wordPinyin={this.state.wordPinyin}
               wordSymbol={this.state.wordSymbol}
-              nextButtonHandler={this.handleNextButtonClick}></MainWindow>
+              buttonMode={buttonModes[this.isHiding]}
+              mainButtonHandler={this.handleMainButtonClick}></MainWindow>
           <DisplayOptionControl className="displayOptionControl"
               value={this.state.hideOption}
               onChangeHandle={this.handleHideOptionChange}
@@ -63,8 +75,40 @@ class App extends React.Component {
     );
   }
 
-  handleNextButtonClick = () => {
-    this.loadNextWord();
+  handleMainButtonClick = () => {
+    if (this.state.hideOption === "none") {
+      this.isHiding = false;
+      this.loadNextWord();
+    }
+    else if (this.isHiding === false) {
+      this.isHiding = true;
+      this.loadNextWord();
+    }
+    else {
+      this.isHiding = false;
+    }
+    this.showWord();
+  }
+
+  showWord() {
+    if (this.currentWordIndex < 0 || this.wordData === null) return;
+    let word = this.filterWord(this.wordData[this.currentWordIndex]);
+
+    this.setState((state) => ({
+      ...state,
+      wordPinyin: word.pinyin,
+      wordSymbol: word.character
+    }));
+  }
+
+  filterWord(word) {
+    if (this.isHiding === false) {
+      return word;
+    }
+    return {
+      pinyin: (this.state.hideOption === "pinyin")? hidingString : word.pinyin,
+      character: (this.state.hideOption === "symbol")? hidingString : word.character,
+    }
   }
 
   loadNextWord() {
@@ -88,13 +132,10 @@ class App extends React.Component {
       i = (this.currentWordIndex + 1) % numData;
     }
     this.currentWordIndex = i;
-      
-    this.setState((state) => ({
-      ...state,
-      wordPinyin: this.wordData[i].pinyin,
-      wordSymbol: this.wordData[i].character
-    }));
+    console.log(this.wordData[i]);
   }
+
+
 
   // load CSV data
   loadData() {
@@ -148,7 +189,5 @@ class App extends React.Component {
     xmlhttp.send();
   }
 }
-
-
 
 export default App;
