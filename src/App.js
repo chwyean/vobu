@@ -24,6 +24,7 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      randomized:true,
       hideOption:"symbol",
       currentWordIndex: -1,
       wordPinyin:"nǐ hǎo", // load initial value
@@ -77,8 +78,19 @@ class App extends React.Component {
     if (numData < 1) {
       return;
     }
-    let i = (this.state.currentWordIndex + 1) % numData;
+    let i = this.state.currentWordIndex;
     
+    if (this.state.randomized && numData > 1) {
+      // random number, must be different from current
+      do {
+        i = Math.floor(Math.random() * numData);
+      } while (i === this.state.currentWordIndex)
+      console.log(i)
+    }
+    else {
+      i = (this.state.currentWordIndex + 1) % numData;
+    }
+      
     this.setState((state) => ({
       ...state,
       currentWordIndex: i,
