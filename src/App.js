@@ -22,8 +22,7 @@ const buttonModes = {
 };
 
 const dataFilePath = './vocab-raw.csv';
-//const localDataFilePath = 'vocab-raw-test.csv';
-const localDataFilePath = 'vocab-raw.csv';
+//const dataFilePath = './vocab-raw-test.csv';
 
 class App extends React.Component {
 
@@ -132,7 +131,7 @@ class App extends React.Component {
       i = (this.currentWordIndex + 1) % numData;
     }
     this.currentWordIndex = i;
-    console.log(this.wordData[i]);
+    //console.log(this.wordData[i]);
   }
 
 
@@ -180,7 +179,7 @@ class App extends React.Component {
     xmlhttp.onreadystatechange = function(){
       if(xmlhttp.status === 200 && xmlhttp.readyState === 4){
         const txt = xmlhttp.responseText;
-        console.log("Read file:" + localDataFilePath)
+        console.log("Read file:" + dataFilePath)
         that.loadDataText(txt);
       }
     };

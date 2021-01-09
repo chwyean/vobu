@@ -14,7 +14,7 @@ function MainWindow(props) {
                 {`
                 .btn-xxl {
                 padding: 10pt;
-                font-size: calc(8pt + 2vw);
+                font-size: calc(10pt + 2vw);
                 }
                 `}
             </style>
