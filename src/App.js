@@ -24,7 +24,10 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      hideOption:"symbol"
+      hideOption:"symbol",
+      currentWordIndex: -1,
+      wordPinyin:"nǐ hǎo", // load initial value
+      wordSymbol:"你好",
     };
   }
  
@@ -46,7 +49,10 @@ class App extends React.Component {
           <h1>
             Chinese Vocabulary Builder
           </h1>
-          <MainWindow class="mainWindow"></MainWindow>
+          <MainWindow class="mainWindow"
+              wordPinyin={this.state.wordPinyin}
+              wordSymbol={this.state.wordSymbol}
+              nextButtonHandler={this.handleNextButtonClick}></MainWindow>
           <DisplayOptionControl className="displayOptionControl"
               value={this.state.hideOption}
               onChangeHandle={this.handleHideOptionChange}
@@ -56,6 +62,29 @@ class App extends React.Component {
         </header>
       </div>
     );
+  }
+
+  handleNextButtonClick = () => {
+    this.loadNextWord();
+  }
+
+  loadNextWord() {
+    if (this.wordData == null) {
+      // no data to load
+      return;
+    }
+    let numData = this.wordData.length;
+    if (numData < 1) {
+      return;
+    }
+    let i = (this.state.currentWordIndex + 1) % numData;
+    
+    this.setState((state) => ({
+      ...state,
+      currentWordIndex: i,
+      wordPinyin: this.wordData[i].pinyin,
+      wordSymbol: this.wordData[i].character
+    }));
   }
 
   // load CSV data
@@ -69,31 +98,37 @@ class App extends React.Component {
   }
 
   loadDataText(text) {
-    console.log("text:\n" + text)
-    // const results = Papa.parse(text, {
-    //   header:true
-    // });
-    // console.log(results);
+    const results = Papa.parse(text, {
+      header:true,
+      skipEmptyLines:true,
+    });
+    if (results.errors.length > 0) {
+      let rows = "";
+      results.errors.forEach((e) => {
+        rows = rows + (e.row+1) + ", ";
+      });
+      console.warn("CSV data may have errors. Please check rows: " + rows);
+    }
+    else {
+      console.log("CSV data loaded without errors");
+    }
+    console.log(results.data);
+    this.wordData = results.data;
   }
 
-  printHello() {
-    console.log("hello");
-  }
 
   readDataFile() {
+    // Load CSV data
     var xmlhttp = new XMLHttpRequest();
     const that = this;
     xmlhttp.onreadystatechange = function(){
       if(xmlhttp.status === 200 && xmlhttp.readyState === 4){
         const txt = xmlhttp.responseText;
         console.log("Read file:" + localDataFilePath)
-
-        that.printHello();
         that.loadDataText(txt);
       }
     };
     
-    //xmlhttp.open("GET","vocab-raw.csv",true);
     xmlhttp.open("GET",localDataFilePath,true);
     xmlhttp.send();
   }
