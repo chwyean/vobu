@@ -21,7 +21,7 @@ const buttonModes = {
   true:"Show",
 };
 
-const dataFilePath = 'vocab-raw-test.csv';
+const dataFilePath = './vocab-raw.csv';
 //const localDataFilePath = 'vocab-raw-test.csv';
 const localDataFilePath = 'vocab-raw.csv';
 
@@ -185,7 +185,8 @@ class App extends React.Component {
       }
     };
     
-    xmlhttp.open("GET",localDataFilePath,true);
+    //xmlhttp.open("GET",localDataFilePath,true);
+    xmlhttp.open("GET",dataFilePath,true);
     xmlhttp.send();
   }
 }
