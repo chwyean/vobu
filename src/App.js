@@ -9,24 +9,25 @@ import Papa from 'papaparse';
 
 
 const hideOptions = {
+  "none":"none",
   "symbol":"symbol",
   "pinyin":"pinyin",
-  "none":"none"
 };
 
 const dataFilePath = 'vocab-raw-test.csv';
-const localDataFilePath = 'vocab-raw-test.csv';
+//const localDataFilePath = 'vocab-raw-test.csv';
+const localDataFilePath = 'vocab-raw.csv';
 
 class App extends React.Component {
 
   wordData=null;
+  currentWordIndex = -1;
+  randomize = true;
 
   constructor(props){
     super(props)
     this.state = {
-      randomized:true,
-      hideOption:"symbol",
-      currentWordIndex: -1,
+      hideOption:"none",
       wordPinyin:"nǐ hǎo", // load initial value
       wordSymbol:"你好",
     };
@@ -59,7 +60,6 @@ class App extends React.Component {
               onChangeHandle={this.handleHideOptionChange}
               options={hideOptions}
           />
-          <p>Chosen value: {hideOptions[this.state.hideOption]}</p>
         </header>
       </div>
     );
@@ -78,22 +78,21 @@ class App extends React.Component {
     if (numData < 1) {
       return;
     }
-    let i = this.state.currentWordIndex;
+    let i = this.currentWordIndex;
     
-    if (this.state.randomized && numData > 1) {
+    if (this.randomize && numData > 1) {
       // random number, must be different from current
       do {
         i = Math.floor(Math.random() * numData);
-      } while (i === this.state.currentWordIndex)
-      console.log(i)
+      } while (i === this.currentWordIndex)
     }
     else {
-      i = (this.state.currentWordIndex + 1) % numData;
+      i = (this.currentWordIndex + 1) % numData;
     }
+    this.currentWordIndex = i;
       
     this.setState((state) => ({
       ...state,
-      currentWordIndex: i,
       wordPinyin: this.wordData[i].pinyin,
       wordSymbol: this.wordData[i].character
     }));
@@ -109,6 +108,7 @@ class App extends React.Component {
     });
   }
 
+  // load data from String
   loadDataText(text) {
     const results = Papa.parse(text, {
       header:true,
@@ -124,8 +124,13 @@ class App extends React.Component {
     else {
       console.log("CSV data loaded without errors");
     }
-    console.log(results.data);
+    //console.log(results.data);
     this.wordData = results.data;
+
+    // randomize start
+    if (this.wordData.length > 0) {
+      this.currentWordIndex = Math.floor(Math.random() * this.wordData.length);
+    }
   }
 
 
