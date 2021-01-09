@@ -44,5 +44,7 @@
 }
 
 .mainButton {
-    min-width: 100pt;
+    min-width: calc(100pt + 10vw);
+    min-height: calc(20pt + 5vw);
+    
 }

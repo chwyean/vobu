@@ -10,7 +10,8 @@ function DisplayOptionControl(props) {
             <ToggleButtonGroup name="hideOption" type="radio" value={props.value} 
                     onChange={props.onChangeHandle} vertical={false}>
                 {Object.entries(props.options).map(([key, value]) => (
-                    <ToggleButton key={key} value={key}>{value}</ToggleButton>
+                    <ToggleButton className="hideButton" size="lg"
+                        key={key} value={key}>{value}</ToggleButton>
                 ))}
             </ToggleButtonGroup>
         </div>

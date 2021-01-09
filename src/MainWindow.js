@@ -10,9 +10,19 @@ function MainWindow(props) {
             <div className="pinyinTextbox">{props.wordPinyin}</div>
             <div className="symbolTextbox">{props.wordSymbol}</div>
 
+            <style type="text/css">
+                {`
+                .btn-xxl {
+                padding: 10pt;
+                font-size: calc(10pt + 2vw);
+                }
+                `}
+            </style>
+
             <div className="mainButtons">
-                <Button className="mainButton" size='lg'>Reveal</Button>
-                <Button className="mainButton" size='lg' variant='primary'
+                {/* <Button className="mainButton" variant='primary' style={{"font-size":"calc(10pt + 3vw)"}}
+                    onClick={props.nextButtonHandler}>Next</Button> */}
+                    <Button className="mainButton" variant='primary' size="xxl"
                     onClick={props.nextButtonHandler}>Next</Button>
             </div>
         </div>

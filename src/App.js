@@ -1,10 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import DisplayOptionControl from './DisplayOptionControl'
 import MainWindow from './MainWindow';
 
-//import Papa from './PapaParse/papaparse';
 import Papa from 'papaparse';
 
 
