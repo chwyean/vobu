@@ -8,11 +8,11 @@ import './DisplayOptionControl.css';
 function DisplayOptionControl(props) {
     return (
         <div className="hideControl">
-            <div style={{"margin-right":20}}>Hide:</div>
+            <div style={{"marginRight":20}}>Hide:</div>
             <ToggleButtonGroup name="hideOption" type="radio" value={props.value} 
                     onChange={props.onChangeHandle} vertical={false}>
                 {Object.entries(props.options).map(([key, value]) => (
-                    <ToggleButton value={key}>{value}</ToggleButton>
+                    <ToggleButton key={key} value={key}>{value}</ToggleButton>
                 ))}
             </ToggleButtonGroup>
         </div>
