@@ -40,3 +40,7 @@
     flex-direction: row;
     justify-content: center;
 }
+
+.mainButton {
+    min-width: 100pt;
+}

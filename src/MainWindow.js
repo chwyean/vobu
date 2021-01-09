@@ -9,8 +9,8 @@ function MainWindow(props) {
             <div className="symbolTextbox">你好</div>
 
             <div className="mainButtons">
-                <Button className="showButton" size='lg'>Show</Button>
-                <Button className="nextButton" size='lg' variant='primary'>Next</Button>
+                <Button className="mainButton" size='lg'>Reveal</Button>
+                <Button className="mainButton" size='lg' variant='primary'>Next</Button>
             </div>
         </div>
     );
