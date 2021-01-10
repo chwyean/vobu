@@ -57,8 +57,9 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <h1>
-            Chinese Vocabulary Builder
+            <b>VOBU</b>
           </h1>
+          <div>Chinese Vocabulary Builder</div>
           <MainWindow class="mainWindow"
               wordPinyin={this.state.wordPinyin}
               wordSymbol={this.state.wordSymbol}
